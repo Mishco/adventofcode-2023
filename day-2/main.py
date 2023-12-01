@@ -41,7 +41,7 @@ with (open('../day-1/input', mode='r') as f):
         # line = '5bszzkpcdxqkvkf7tgcone2'
         # line = '5bszzkpcdxqkvkf7tgcone2'
         # line = '6oneightsr' ## 68 and not 61
-        line = 'four2prxrhrcvfour' ## 44 and not 42
+        # line = 'four2prxrhrcvfour' ## 44 and not 42
         # line = '4threelfvzndfive'
         # line = '7zmlcpsjneight7pbtqbkgl' # should be 77 not 78
         # line ='5bszzkpcdxqkvkf7tgcone2'
@@ -80,10 +80,14 @@ with (open('../day-1/input', mode='r') as f):
         re_digits_words_first = re.findall(new_pattern, line)[:1]
         re_digits_words_last = re.findall(new_pattern, line)[-1:]
 
+        # [m.start(0) for m in re.finditer(new_pattern, line)]
+        iter = re.finditer(new_pattern, line)
+        indices = [m.start(0) for m in iter]
+
         if re_digits_words_first:
             re_digits_words_first_index = line.index(re_digits_words_first[0])
         if re_digits_words_last:
-            re_digits_words_last_index = line.index(re_digits_words_last[0])
+            re_digits_words_last_index = indices[-1:][0]#line[::1].index(re_digits_words_last[0])
 
         if m and m2 and not re_digits_words_first and not re_digits_words_last:
             first_digit = line[m.start()]
@@ -162,5 +166,6 @@ print(sum)
 # 54492
 # 54414
 # 54427
+# 54431
 
 # total=54431 is right
