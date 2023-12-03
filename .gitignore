@@ -189,3 +189,4 @@ cython_debug/
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
 !/inputs/
+/inputs/
