@@ -10,7 +10,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 
 games = {}
 
-with (open('/input', mode='r') as f):
+with (open('../inputs/day02.txt', mode='r') as f):
     for each_line in f:
     # for each_line in test_input.splitlines():
         if 'Game' in each_line:

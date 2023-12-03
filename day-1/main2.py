@@ -15,7 +15,7 @@ def get_number_from_word(word):
         'eight': 8,
         'nine': 9
     }
-    return switch.get(word, "Invalid input")
+    return switch.get(word, "Invalid day01.txt")
 
 
 test_input = """
@@ -29,7 +29,7 @@ zoneight234
 """
 # In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
 
-with (open('input', mode='r') as f):
+with (open('../inputs/day01.txt', mode='r') as f):
     for line in f:
         # line = '1sevenninesix1\n'
         # line = '5bszzkpcdxqkvkf7tgcone2'

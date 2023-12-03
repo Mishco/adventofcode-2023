@@ -11,7 +11,7 @@ import re
 
 sum = int(0)
 
-with open('input', mode='r') as f:
+with open('../inputs/day01.txt', mode='r') as f:
     for line in f:
         m = re.search(r"\d", line)
         m2 = re.search(r"\d", line[::-1])

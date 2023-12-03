@@ -29,7 +29,7 @@ part_number = []
 total = 0
 symbols = ["*", "#", "+", "$", "%"]
 
-with (open('input', mode='r') as f):
+with (open('../inputs/day03.txt', mode='r') as f):
     for rows in f:
         schematic.append(rows)
 lists = []
