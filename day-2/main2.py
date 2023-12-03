@@ -9,10 +9,10 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 """
 
 games = {}
-# for each_line in test_input.splitlines():
 
 with (open('/input', mode='r') as f):
     for each_line in f:
+    # for each_line in test_input.splitlines():
         if 'Game' in each_line:
             game_id = each_line.split(":")[0]
             ls_ = each_line.split(":")[1]
@@ -61,6 +61,7 @@ minimal_blue = 14
 
 # possible_games = collections.defaultdict(list)
 sum = 0
+total_power = 0
 for key, val in new_games.items():
     print(key, val)
     # print(val)
@@ -68,19 +69,26 @@ for key, val in new_games.items():
     for invalue in val:
         if 'blue' in invalue.keys():
             max_blue = max(invalue['blue'])
+            min_blue = min(invalue['blue'])
         elif 'green' in invalue.keys():
             max_green = max(invalue['green'])
+            min_green = min(invalue['green'])
         elif 'red' in invalue.keys():
             max_red = max(invalue['red'])
+            min_red = min(invalue['red'])
 
     print(max_red, max_green, max_blue)
+    # print(min_red, min_green, min_blue)
+    power = max_red * max_green * max_blue
+    print(power)
+    total_power += power
     if minimal_red >= max_red and minimal_green >= max_green and minimal_blue >= max_blue:
         print(f"{key} would be possible")
         just_number = key.split(' ')[1]
         sum += int(just_number)
 
 print()
-print(sum)
-
+# print(sum)
+print(total_power)
 # 2350 - not rigtr
 # 2439
