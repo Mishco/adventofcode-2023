@@ -191,3 +191,4 @@ cython_debug/
 !/inputs/
 /inputs/
 **/inputs/
+**/inputs
