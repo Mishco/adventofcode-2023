@@ -190,3 +190,4 @@ cython_debug/
 /.idea/vcs.xml
 !/inputs/
 /inputs/
+**/inputs/
