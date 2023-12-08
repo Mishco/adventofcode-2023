@@ -69,6 +69,7 @@ class Card:
     def __repr__(self) -> str:
         return f'{self.hand} {self.bid} {self.type}'
 
+
 class CardWithJoker(Card):
 
     def __init__(self, s, bid):
@@ -85,53 +86,17 @@ class CardWithJoker(Card):
         newHand = h.replace('*', mostCommon)
         return super().get_hand_type(newHand)
 
+
 def tests():
-    ttt = """32T3K 765
-    T55J5 684
-    KK677 28
-    KTJJT 220
-    QQQJA 483"""
+    lines = [i for i in open('test-in.txt', 'r').read().split('\n') if i.strip()]
 
-    # print(ttt)
-    n = 5
-    for each in ttt.split('\n'):
-        ccc, bid = each.split()
-        # print(ccc)
-
-        # Count the frequency of each card label
-        label_counts = {}
-        for card in ccc:
-            label = card[0]
-            if label in label_counts:
-                label_counts[label] += 1
-            else:
-                label_counts[label] = 1
-
-        # Determine the poker hand based on the label counts
-        num_labels = len(label_counts)
-        if num_labels == 1:
-            print("Five of a kind")
-        elif num_labels == 2:
-            if 4 in label_counts.values():
-                print("Four of a kind")
-            else:
-                print("Full house")
-        elif num_labels == 3:
-            if 3 in label_counts.values():
-                print("Three of a kind")
-            else:
-                print("Two pair")
-        elif num_labels == 4:
-            print("One pair")
-        else:
-            print("High card")
-        #
-        # for i in range(n):
-        #     # find all the same
-        #     if len(set(ccc[i:i + n])) == n:
-        #         # return i + n
-        #         print(ccc)
-        # len(set(ccc[i:i + n])) == n:
+    cards = [card.split(' ') for card in lines]
+    # print(cards)
+    cards = [Card(a, b) for a, b in cards]
+    sortedCards = sorted(cards)
+    win = [(rank + 1) * card.bid for rank, card in enumerate(sortedCards)]
+    result = sum(win)
+    assert result == 6440
 
 
 def convert(hand):
@@ -159,7 +124,7 @@ def hand(current_hand, part1=True):
 
     result_rank = ['J23456789TXQKA'.index(i) for i in current_hand]
     res = []
-    for r in reversed_ranked:
+    for r in 'J23456789TXQKA':
         c = collections.Counter(current_hand.replace('J', r))
         p = tuple(sorted(c.values()))
         # all possible combinations
@@ -171,52 +136,23 @@ def hand(current_hand, part1=True):
 
 
 if __name__ == '__main__':
-    # tests()
+    tests()
 
-    f = open('../inputs/day07.txt', 'r')
+    # f = open('../inputs/day07.txt', 'r')
     lines = [i for i in open('../inputs/day07.txt', 'r').read().split('\n') if i.strip()]
     # print(lines)
     cards = [card.split(' ') for card in lines]
+    # print(cards)
     cards = [Card(a, b) for a, b in cards]
     sortedCards = sorted(cards)
 
     winner = [(rank + 1) * card.bid for rank, card in enumerate(sortedCards)]
     print(f'part 1: {sum(winner)}')
 
-    cards2 = [CardWithJoker(a, b) for a, b in cards]
+    cards2 = [card.split(' ') for card in lines]
+    cards2 = [CardWithJoker(a, b) for a, b in cards2]
 
     sortedCards2 = sorted(cards2)
-    winnings = [(rank + 1) * card.bid for rank, card in enumerate(sortedCards2)]
+    winner = [(rank + 1) * card.bid for rank, card in enumerate(sortedCards2)]
 
-    print(f'part 1: {sum(winnings)}')
-    # result = {}
-    # for hand, bid in (l.split() for l in lines):
-    #     # print(hand, bid)
-    #     result[hand(hand, part1=True)] = bid
-    # print(result)
-    # h = sorted((hand(hand, part1=True), int(bid)) for hand, bid in (l.split() for l in lines))
-    # print(h)
-
-# import collections
-#
-# lines = [i for i in open('input').read().split('\n') if i.strip()]
-#
-#
-# def hand(h, part1):
-#     if part1: h = h.replace('J', 'X')
-#     h2 = ['J23456789TXQKA'.index(i) for i in h]
-#     ts = []
-#     for r in 'J23456789TQKA':
-#         c = collections.Counter(h.replace('J', r))
-#         p = tuple(sorted(c.values()))
-#         t = [(1, 1, 1, 1, 1), (1, 1, 1, 2), (1, 2, 2), (1, 1, 3), (2, 3), (1, 4), (5,)].index(p)
-#         ts.append(t)
-#     return (max(ts), *h2)
-#
-#
-# for part1 in (True, False):
-#     h = sorted((hand(h, part1), int(b)) for h, b in (l.split() for l in lines))
-#     t = 0
-#     for i, (_, b) in enumerate(h):
-#         t += i * b + b
-#     print('Part', 2 - part1, ':', t)
+    print(f'part 2: {sum(winner)}')
