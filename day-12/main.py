@@ -1,10 +1,4 @@
 from functools import lru_cache
-from typing import Tuple
-
-cache = {}
-
-from functools import lru_cache
-from typing import Tuple
 
 
 @lru_cache
@@ -50,26 +44,8 @@ if __name__ == '__main__':
     """
     lines = open('../inputs/day12.txt', 'r').read().split('\n')
 
-    times = 1  # part1
-    total = 0
-
-    # for ln in lines:
-    #     row, nums = ln.split()
-    #     row = "?".join([row] * times)
-    #     nums = [int(n) for n in nums.split(",")] * times
-    #     total += count_ways(row, nums)
-
     print(f"part1: {calculate_total(times=1)}")
+    # part1: 7922
 
     print(f"part2: {calculate_total(times=5)}")
-    # for ln in lines:
-    #     row, nums = ln.split()
-    #     row = "?".join([row] * times)
-    #     nums = [int(n) for n in nums.split(",")] * times
-    #     total += count_ways(row, nums)
-
-    # times = 5  # part2
-
-    # print(get_total(5))
-
     # part2 - 18093821750095
