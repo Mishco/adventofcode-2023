@@ -25,7 +25,7 @@ def run_with_numpy(lines):
         for ln in lines
     ]
 
-    for diffs in (0, 1):
+    for diffs in 0, 1:
         result = 0
         for g in grids:
             for g, f in ((g, 1), (g.T, MULTIPLIED_FOR_ROWS)):
