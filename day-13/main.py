@@ -6,8 +6,8 @@ MULTIPLIED_FOR_ROWS: int = 100
 
 
 def transpose(input_matrix):
-    # return [*zip(*input_matrix)]
-    return list(map(list, zip(*input_matrix)))
+    # return list(map(list, zip(*input_matrix)))
+    return [*zip(*input_matrix)]
 
 
 def reflect_pattern(p, s):
@@ -42,11 +42,12 @@ def run_with_numpy(lines):
 
 if __name__ == '__main__':
     orig_lines: list[str] = open('../inputs/day13.txt').read().split('\n\n')
-    lines = list(map(str.splitlines, orig_lines))
+    puzzles = list(map(str.splitlines, orig_lines))
 
     for s in 0, 1:
         res = sum(
-            MULTIPLIED_FOR_ROWS * reflect_pattern(line, s) + reflect_pattern(transpose(line), s) for line in lines)
+            MULTIPLIED_FOR_ROWS * reflect_pattern(puzzle, s) + reflect_pattern(transpose(puzzle), s) for puzzle in
+            puzzles)
         print(f"part {s}: {res}")
 
     run_with_numpy(orig_lines)
