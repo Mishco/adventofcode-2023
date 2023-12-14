@@ -135,13 +135,6 @@ def titl_platform_part2(board):
     return north_load
 
 
-# 50
-# 18
-# 32
-# 21
-# 12
-# 3
-# =136
 if __name__ == '__main__':
     # The total load is the sum of the load caused by all the rounded rocks.
     # In this example, the total load is 136.
@@ -153,16 +146,10 @@ if __name__ == '__main__':
     data = open('../inputs/day14.txt').read().strip()
     L = data.split('\n')
     board = [[c for c in row] for row in L]
-    # print_board(board)
+
     print("part1: ", tilt_platform(board, directionslist=["up"]))  # part1
+    # 106186 is right
 
     board = [[c for c in row] for row in L]
     print("part2: ", titl_platform_part2(board))
-    # print(tilt_platform(board, directionslist=['up', 'left', 'down', 'right'])) # part1
-
-    # print_board(board)
-    # part1
-    # 98143 not right
-    # 106186 is right
-
-# 106390 for part2
+    # 106390 for part2
