@@ -1,11 +1,6 @@
-import sys
-import re
-from copy import deepcopy
-from math import gcd
-from collections import defaultdict, Counter, deque
-
 def main():
     pass
+
 
 directions = {
     "up": (-1, 0),
@@ -14,13 +9,38 @@ directions = {
     "right": (0, 1)
 }
 
+
 # Define a function to print the board
 def print_board(board):
     for row in board:
         print(row)
 
+
 def is_valid_position(board, row, col):
     return row >= 0 and row < len(board) and col >= 0 and col < len(board)
+
+
+def rotate(grid):
+    rows = len(grid)
+    cols = len(grid[0])
+    NG = [['?' for _ in range(rows)] for _ in range(cols)]
+    for r in range(rows):
+        for c in range(cols):
+            NG[c][rows - 1 - r] = grid[r][c]
+    return NG
+
+
+def roll(grid):
+    R = len(grid)
+    C = len(grid[0])
+    for c in range(C):
+        for _ in range(R):
+            for r in range(R):
+                if grid[r][c] == 'O' and r > 0 and grid[r - 1][c] == '.':
+                    grid[r][c] = '.'
+                    grid[r - 1][c] = 'O'
+    return grid
+
 
 # def move_rock(board, row, col, direction):
 #     # Check if the rock can be moved in the given direction
@@ -41,7 +61,7 @@ def is_valid_position(board, row, col):
 #                     print("Cannot move rock at position ({}, {})".format(row, col))
 
 
-def tilt_platform(board, directionslist= ['up', 'left', 'down', 'right'], max_cycles=1000000000):
+def tilt_platform(board, directionslist=['up', 'left', 'down', 'right'], max_cycles=1000000000):
     # Define the row and column offsets for each direction
     directions = {
         "up": (-1, 0),
@@ -82,8 +102,38 @@ def tilt_platform(board, directionslist= ['up', 'left', 'down', 'right'], max_cy
         for col in range(len(board[row])):
             if board[row][col] == "O":
                 north_load += total_rows - row
-    print(north_load)
+    # print(north_load)
     return north_load
+
+
+def titl_platform_part2(board):
+    goal = 1_000_000_000
+    cycle = 0
+
+    cycle_cache = {}
+    found_cycle = False
+
+    while cycle < goal:
+        cycle += 1
+        for j in range(4):
+            board = roll(board)
+            board = rotate(board)
+
+        Gh = tuple(tuple(row) for row in board)
+        if Gh in cycle_cache:
+            cycle_length = cycle - cycle_cache[Gh]
+            amt = (goal - cycle) // cycle_length
+            cycle += amt * cycle_length
+        cycle_cache[Gh] = cycle
+
+    north_load = 0
+    total_rows = len(board)
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == "O":
+                north_load += total_rows - row
+    return north_load
+
 
 # 50
 # 18
@@ -93,20 +143,22 @@ def tilt_platform(board, directionslist= ['up', 'left', 'down', 'right'], max_cy
 # 3
 # =136
 if __name__ == '__main__':
-    # main()
-    # The total load is the sum of the load caused by all of the rounded rocks.
+    # The total load is the sum of the load caused by all the rounded rocks.
     # In this example, the total load is 136.
     #
     # Tilt the platform so that the rounded rocks all roll north.
     # Afterward, what is the total load on the north support beams?
 
-    data = open('sample').read().strip()
-    # data = open('../inputs/day14.txt').read().strip()
+    # data = open('sample').read().strip()
+    data = open('../inputs/day14.txt').read().strip()
     L = data.split('\n')
     board = [[c for c in row] for row in L]
     # print_board(board)
-    print(tilt_platform(board, directionslist=["up"])) # part1
-    print(tilt_platform(board, directionslist=['up', 'left', 'down', 'right'])) # part1
+    print("part1: ", tilt_platform(board, directionslist=["up"]))  # part1
+
+    board = [[c for c in row] for row in L]
+    print("part2: ", titl_platform_part2(board))
+    # print(tilt_platform(board, directionslist=['up', 'left', 'down', 'right'])) # part1
 
     # print_board(board)
     # part1
@@ -114,4 +166,3 @@ if __name__ == '__main__':
     # 106186 is right
 
 # 106390 for part2
-
