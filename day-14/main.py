@@ -126,12 +126,10 @@ def titl_platform_part2(board):
             cycle += amt * cycle_length
         cycle_cache[Gh] = cycle
 
-    north_load = 0
     total_rows = len(board)
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] == "O":
-                north_load += total_rows - row
+    north_load = sum(
+        [(total_rows - row) for row in range(len(board)) for col in range(len(board[row])) if board[row][col] == "O"])
+
     return north_load
 
 
