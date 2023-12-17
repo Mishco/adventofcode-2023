@@ -1,4 +1,5 @@
 # data = open('../inputs/day15.txt').read().split(',')
+# TODO: clean up
 from collections import defaultdict
 
 ll = open('../inputs/day15.txt').read().strip().split(',')
@@ -39,21 +40,6 @@ def hash_(str):
     h += ord(c)
     h = (17*h)%256
   return h
-
-# print('part1: ', sum(hash_(d) for d in data))
-#
-# boxes = defaultdict(dict)
-#
-# for cmd in data:
-#   if '-' in cmd:
-#     label = cmd[:-1]
-#     h = hash_(label)
-#     boxes[hash_(label)].pop(label, None)
-#   else:
-#     label, i = cmd.split('=')
-#     boxes[hash_(label)][label] = int(i)
-#
-# print('part2: ', sum((i+1)*(j+1)*l for i in boxes for j,l in enumerate(boxes[i].values())))
 
 if __name__ == '__main__':
 
