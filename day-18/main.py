@@ -1,4 +1,7 @@
 # --- Day 18: Lavaduct Lagoon ---
+#
+# https://adventofcode.com/2023/day/18
+#
 # Shoelace_formula https://en.wikipedia.org/wiki/Shoelace_formula
 # Pick's theorem https://en.wikipedia.org/wiki/Pick%27s_theorem
 
